@@ -1,10 +1,9 @@
+################    HAVE WLS USE DEDICATED GPU  ################
 If you're having trouble passing your dedicated GPU to WLS, type this into Ubuntu Terminal:
 
 export GALLIUM_DRIVER=d3d12
 export MESA_D3D12_DEFAULT_ADAPTER_NAME="Radeon RX 6900"
 glxinfo -B
-
-
 
 To make it permanent, add this to the bottom of "~/.bashrc"
 
@@ -12,3 +11,18 @@ To make it permanent, add this to the bottom of "~/.bashrc"
 export GALLIUM_DRIVER=d3d12
 export MESA_D3D12_DEFAULT_ADAPTER_NAME="Radeon RX 6900 XT"
 source "/home/sebgra518/DroneDockingSim/ardupilot/Tools/completion/completion.bash"
+
+################    git commands ################
+
+cd /<Repo Directory>
+git add .
+git commit -m "Your descriptive commit message here"
+git push origin 
+
+################    Ardupilot Instullation ################
+
+
+################    Starting Gazebo with Ardupilot ################
+
+~/DroneDockingSim/run_ardupilot.sh
+
