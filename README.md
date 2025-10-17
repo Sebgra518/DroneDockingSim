@@ -1,95 +1,94 @@
-TODO: Transfer to MARKUP \################ HAVE WLS USE DEDICATED GPU
-\################ If you're having trouble passing your dedicated GPU to
-WLS, type this into Ubuntu Terminal:
+This guide will teach you how to install Ardupilot and Gazebo on WSL/Ubuntu
 
-export GALLIUM_DRIVER=d3d12 export
-MESA_D3D12_DEFAULT_ADAPTER_NAME="Radeon RX 6900" glxinfo -B
+# Ardupilot & Gazebo Installation
 
-To make it permanent, add this to the bottom of "\~/.bashrc"
+### 1. Preperation
 
-# WSLg GPU selection (keeps you off llvmpipe)
+`sudo apt update && sudo apt upgrade -y`
+`sudo apt install build-essential git python3-pip cmake wget curl gnupg lsb-release`
 
-export GALLIUM_DRIVER=d3d12 export
-MESA_D3D12_DEFAULT_ADAPTER_NAME="Radeon RX 6900 XT" source
-"/home/sebgra518/DroneDockingSim/ardupilot/Tools/completion/completion.bash"
+### 2. Install Ardupilot:
 
-################ git commands
+##### Clone:
 
-cd /`<Repo Directory>`{=html} git add . git commit -m "Your descriptive
-commit message here" git push origin
+`git clone https://github.com/ArduPilot/ardupilot.git`
+`cd ardupilot`
+`git submodule update --init --recursive`
+`Tools/environment_install/install-prereqs-ubuntu.sh -y`
+`. ~/.profile`
 
-################ Ardupilot Installation
+##### Build SITL firmware:
 
-1.  Preperation
+`./waf configure --board sitl`
+`./waf copter`
 
-sudo apt update && sudo apt upgrade -y sudo apt install build-essential
-git python3-pip cmake wget curl gnupg lsb-release
+##### Test ArduPilot:
 
-2.  Install Ardupilot: cd \~ git clone
-    https://github.com/ArduPilot/ardupilot.git cd ardupilot git
-    submodule update --init --recursive
-    Tools/environment_install/install-prereqs-ubuntu.sh -y . \~/.profile
+`cd ArduCopter`
+`sim_vehicle.py -v ArduCopter --map --console`
 
-3.  Build SITL firmware: ./waf configure --board sitl ./waf copter
-
-4.  Test ArduPilot cd ArduCopter sim_vehicle.py -v ArduCopter --map
-    --console
-
-################ Gazebo Installation
+# 3. Gazebo Installation
 
 Refer to: https://gazebosim.org/docs/harmonic/install_ubuntu/
 
-Test with: gz sim -v4 -r shapes.sdf
+Test with: `gz sim -v4 -r shapes.sdf`
 
-################ Gazebo ArduPilot Plugin Installation
+# 4. Gazebo ArduPilot Plugin Installation
 
-1.  Installation
+##### Clone and Make:
 
-cd \~ git clone https://github.com/ArduPilot/ardupilot_gazebo.git cd
-ardupilot_gazebo mkdir build && cd build export GZ_VERSION=harmonic
-cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo make -j\$(nproc)
+`cd ~`
+`git clone https://github.com/ArduPilot/ardupilot_gazebo.git`
+`cd ardupilot_gazebo`
+`mkdir build && cd build`
+`export GZ_VERSION=harmonic`
+`cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo`
+`make -j$(nproc)`
 
-2.  Set environment variables permanently: echo 'export
-    GZ_VERSION=harmonic' \>\> \~/.bashrc echo 'export
-    GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}'
-    \>\> \~/.bashrc echo 'export
-    GZ_SIM_RESOURCE_PATH=$HOME/ardupilot_gazebo/models:$HOME/ardupilot_gazebo/worlds:\${GZ_SIM_RESOURCE_PATH}'
-    \>\> \~/.bashrc source \~/.bashrc
+##### Set environment variables permanently:
+
+`echo 'export GZ_VERSION=harmonic' >> ~/.bashrc`
+`echo 'export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}' >> ~/.bashrc`
+`echo 'export GZ_SIM_RESOURCE_PATH=$HOME/ardupilot_gazebo/models:$HOME/ardupilot_gazebo/worlds:${GZ_SIM_RESOURCE_PATH}' >> ~/.bashrc`
+`source ~/.bashrc`
 
 # Troubleshooting
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  **Issue**                                 **Symptom**            **Root Cause**                                   **Fix / Command**
-  ----------------------------------------- ---------------------- ------------------------------------------------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-  🔧 **Build stopped \~40 %**               Fails on               Missing GStreamer dev packages                   `sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl gstreamer1.0-plugins-ugly`
-                                            `GstCameraPlugin.cc`                                                    
+##### Problem: Build stops ~40% on `GstCameraPlugin.cc`
 
-  🔧 **Build stopped \~50 %**               Stuck on               Low WSL RAM                                      Build with `make -j1` or increase memory in `~/.wslconfig`
-                                            `GstCameraPlugin.cc`                                                    
-                                            or heavy swap usage                                                     
+##### Solution: `sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl gstreamer1.0-plugins-ugly`
 
-  🔧 **Gazebo error: "Unable to find        Drone/world missing    `GZ_SIM_RESOURCE_PATH` not set                   `export GZ_SIM_RESOURCE_PATH=$HOME/ardupilot_gazebo/models:$HOME/ardupilot_gazebo/worlds`
-  uri\[model://runway\]"**                                                                                          
 
-  🔧                                        SITL script not in     PATH missing `~/.local/bin`                      Add `export PATH="$HOME/.local/bin:$PATH"` to `~/.bashrc`
-  **`sim_vehicle.py: command not found`**   PATH                                                                    
-
-  🔧 **`you need to install empy`**         SITL build fails       Python dependency missing                        `python3 -m pip install --user empy==3.3.4 pymavlink MAVProxy`
-
-  🔧 **Build stopped \~60 % with protobuf   "generated by an older Mismatch between Gazebo's `.pb.h` and local      Reinstall distro packages: `sudo apt install --reinstall protobuf-compiler libprotobuf-dev libgz-msgs10-dev`
-  errors**                                  version of protoc"     protobuf headers                                 
-
-  ⚠️ **Still failing after that**           Same protobuf error    Anaconda injecting its own headers               Build in a *clean shell* without Conda: `env -i HOME=$HOME PATH="/usr/bin:/bin" bash --noprofile --norc` then rebuild
-                                            persists               (`/mnt/c/Users/.../anaconda3/Library/include`)   
-
-  ✅ **Solved**                             Build completes        ---                                              Keep Conda disabled when building system code.
-                                            successfully                                                            
 
   🛫 **Commands not working**               `mode GUIDED`,         Commands typed into the wrong terminal (Gazebo   Type them inside the ArduPilot console (`MAV>` prompt).
                                             `arm throttle` did     instead of MAVProxy)                             
                                             nothing                                                                 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 ################ Starting Gazebo with Ardupilot
 
 \~/DroneDockingSim/run_ardupilot.sh
+
+
+
+# HAVE WSL USE DEDICATED GPU
+
+If you're having trouble passing your dedicated GPU to
+WLS, type this into Ubuntu Terminal:
+
+`export GALLIUM_DRIVER=d3d12 export MESA_D3D12_DEFAULT_ADAPTER_NAME="<YOUR GPU NAME>" glxinfo -B`
+
+To make it permanent, add this to the bottom of `~/.bashrc`
+
+# WSL GPU selection (keeps you off llvmpipe)
+
+`export GALLIUM_DRIVER=d3d12 export MESA_D3D12_DEFAULT_ADAPTER_NAME="<YOUR GPU NAME>" source "/home/<USER>/DroneDockingSim/ardupilot/Tools/completion/completion.bash"`
+
+# git commands
+
+`cd /` `
+
+`git add .`
+
+`git commit -m "Your descriptive commit message here"`
