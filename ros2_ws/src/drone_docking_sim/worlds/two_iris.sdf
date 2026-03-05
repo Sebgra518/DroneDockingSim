@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="two_iris_world">
+
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sun</uri>
+    </include>
+
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ground%20Plane</uri>
+    </include>
+
+    <!-- Drone 1 -->
+    <model name="drone1">
+      <pose>0 0 0.2 0 0 0</pose>
+      <include>
+        <uri>model://iris_with_ardupilot</uri>
+      </include>
+    </model>
+
+    <!-- Drone 2 (spawned 3m to the east) -->
+    <model name="drone2">
+      <pose>3 0 0.2 0 0 0</pose>
+      <include>
+        <uri>model://iris_with_ardupilot</uri>
+      </include>
+    </model>
+
+  </world>
+</sdf>

@@ -1,0 +1,32 @@
+running develop
+running egg_info
+creating drone_docking_sim.egg-info
+writing drone_docking_sim.egg-info/PKG-INFO
+writing dependency_links to drone_docking_sim.egg-info/dependency_links.txt
+writing entry points to drone_docking_sim.egg-info/entry_points.txt
+writing requirements to drone_docking_sim.egg-info/requires.txt
+writing top-level names to drone_docking_sim.egg-info/top_level.txt
+writing manifest file 'drone_docking_sim.egg-info/SOURCES.txt'
+reading manifest file 'drone_docking_sim.egg-info/SOURCES.txt'
+writing manifest file 'drone_docking_sim.egg-info/SOURCES.txt'
+running build_ext
+Creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/lib/python3.12/site-packages/drone-docking-sim.egg-link (link to .)
+Installing two_drones_script script to /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/lib/drone_docking_sim
+
+Installed /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim
+running symlink_data
+creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/ament_index
+creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/ament_index/resource_index
+creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/ament_index/resource_index/packages
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/resource/drone_docking_sim -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/ament_index/resource_index/packages
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/package.xml -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim
+creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/launch
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/launch/bringup_two_drones.launch.py -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/launch
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/launch/two_drones_gz.launch.py -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/launch
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/launch/two_sitl.launch.py -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/launch
+creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/worlds
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/worlds/two_iris.sdf -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/worlds
+creating /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/scripts
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/scripts/env_gz.sh -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/scripts
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/scripts/mavproxy-multi-vehicle.sh -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/scripts
+symbolically linking /mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/scripts/run_two_sitl.sh -> /mnt/Volume/Github/DroneDockingSim/ros2_ws/install/drone_docking_sim/share/drone_docking_sim/scripts

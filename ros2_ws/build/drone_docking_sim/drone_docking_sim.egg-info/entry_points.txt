@@ -1,0 +1,2 @@
+[console_scripts]
+two_drones_script = drone_docking_sim.two_drones_script:main

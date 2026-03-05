@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: drone-docking-sim
+Version: 0.0.1
+Summary: Two-drone ArduPilot + Gazebo Harmonic sim bringup
+Maintainer: sebgra518
+Maintainer-email: sebgra518@gmail.com
+License: MIT
