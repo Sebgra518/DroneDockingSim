@@ -52,7 +52,7 @@ def generate_launch_description():
             "bash", "-lc",
             "cd ~/ardupilot && "
             "sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON "
-            "--no-mavproxy --no-console -I0"
+            "--no-mavproxy -I0"
         ],
         output="screen",
     )
@@ -62,7 +62,7 @@ def generate_launch_description():
             "bash", "-lc",
             "cd ~/ardupilot && "
             "sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON "
-            "--no-mavproxy --no-console -I1"
+            "--no-mavproxy -I1"
         ],
         output="screen",
     )
@@ -70,15 +70,19 @@ def generate_launch_description():
     # OPTIONAL: Start one MAVProxy instance connected to both vehicles.
     # Comment this out for now if you don't have MAVProxy installed yet.
     mavproxy = ExecuteProcess(
-        cmd=[
-            "bash", "-lc",
-            "mavproxy.py "
-            "--master=tcp:127.0.0.1:5760 "
-            "--master=tcp:127.0.0.1:5770 "
-            "--console"
-        ],
-        output="screen",
-    )
+    cmd=[
+        "bash",
+        "-lc",
+        # Wait for SITL TCP ports to open, then run MAVProxy
+        "until nc -z 127.0.0.1 5760; do sleep 1; done; "
+        "until nc -z 127.0.0.1 5770; do sleep 1; done; "
+        "python3 -m MAVProxy.mavproxy "
+        "--master=tcp:127.0.0.1:5760 "
+        "--master=tcp:127.0.0.1:5770 "
+        "--console"
+    ],
+    output="screen",
+)
 
     return LaunchDescription([
         DeclareLaunchArgument(

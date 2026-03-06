@@ -79,7 +79,7 @@ gz sim -r src/drone_docking_sim/worlds/two_iris.sdf
 #### Terminal 2 (Drone 1)
 ```
 cd ~/ardupilot
-sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --no-mavproxy --no-console -I0
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console --map -I0
 ```
 
 #### Terminal 3 (Drone 2)
@@ -105,4 +105,29 @@ The script will:
 
 # Troubleshooting
 
-TODO
+### ros2: command not found
+```
+source /opt/ros/jazzy/setup.bash
+```
+Verify: 
+``` 
+ros2 --version
+```
+
+### Package 'drone_docking_sim' not found: "package 'drone_docking_sim' not found, searching: ['/opt/ros/jazzy']"
+Inside of your repo:
+```
+cd ./ros2_ws
+source /opt/ros/jazzy/setup.bash
+source install/setup.bash
+ros2 pkg list | grep drone_docking_sim
+```
+
+### Build from Source MAVProxy:
+```
+sudo apt-get update
+sudo apt-get install python3-pip python3-dev python3-lxml python3-tk python3-pygame python3-scipy python3-serial python3-pexpect
+
+# Install MAVProxy via pip
+pip3 install --upgrade pymavlink mavproxy   
+```
