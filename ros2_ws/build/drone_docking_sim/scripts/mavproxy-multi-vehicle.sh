@@ -1,1 +1,0 @@
-/mnt/Volume/Github/DroneDockingSim/ros2_ws/src/drone_docking_sim/scripts/mavproxy-multi-vehicle.sh

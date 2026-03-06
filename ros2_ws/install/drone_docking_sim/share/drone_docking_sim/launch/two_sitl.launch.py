@@ -1,1 +1,0 @@
-/mnt/Volume/Github/DroneDockingSim/ros2_ws/build/drone_docking_sim/launch/two_sitl.launch.py
