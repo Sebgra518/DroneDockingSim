@@ -1,2 +1,108 @@
 # DroneDockingSim
- Simuating two drones docking using Gazebo, ROS2, and Ardupilot Plugin.
+
+Multi-Drone ArduPilot + Gazebo Harmonic + ROS 2 Simulation
+
+This project provides a reproducible simulation environment for controlling two ArduPilot-based quadcopters in Gazebo Harmonic using ROS 2 (Jazzy).
+
+It includes:
+
+- Gazebo world with two drones
+- Dual ArduPilot SITL instances
+- MAVLink-based Python control script
+- ROS 2 launch integration
+
+## Requirements
+
+- Ubuntu 24.04
+- ROS 2 Jazzy
+- Gazebo Harmonic
+- ArduPilot (with SITL built)
+- ardupilot_gazebo plugin
+
+## Setup
+
+### 1) Clone the repository
+
+```bash
+git clone https://github.com/Sebgra518/DroneDockingSim.gitDroneDockingSim
+cd DroneDockingSim/ros2_ws
+```
+### 2) Source ROS 2
+```bash
+source /opt/ros/jazzy/setup.bash
+```
+
+### 3) Create Python Virtual Environment
+```
+python3 -m venv venv
+source venv/bin/activate
+touch venv/COLCON_IGNORE
+pip install --upgrade pip
+pip install pymavlink
+```
+
+### 4) Build the Workspace
+```
+rm -rf build install log
+export AMENT_PYTHON_EXECUTABLE=$(which python)
+export PYTHON_EXECUTABLE=$(which python)
+
+colcon build --symlink-install
+source install/setup.bash
+```
+
+### 5) Configure Gazebo Model Path
+```
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ardupilot_gazebo/models:$HOME/ardupilot_gazebo/worlds
+```
+
+## Running the Simulation
+
+### Full Bringup
+```
+ros2 launch drone_docking_sim bringup_two_drones.launch.py
+```
+This starts:
+- Gazebo
+- Two ArduPilot SITL instances
+- MAVProxy console
+
+### Manual Bringup
+
+Start up 3 Terminal Instances
+
+#### Terminal 1 (Gazebo)
+```
+gz sim -r src/drone_docking_sim/worlds/two_iris.sdf
+```
+
+#### Terminal 2 (Drone 1)
+```
+cd ~/ardupilot
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --no-mavproxy --no-console -I0
+```
+
+#### Terminal 3 (Drone 2)
+```
+cd ~/ardupilot
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --no-mavproxy --no-console -I1
+```
+
+## Running the Python Control Script
+```
+cd ros2_ws
+source venv/bin/activate
+source /opt/ros/jazzy/setup.bash
+source install/setup.bash
+
+python -m drone_docking_sim.two_drones_script
+```
+The script will:
+- Arm both drones
+- Take off to 10 meters
+- Move 10 meters north
+- Land
+
+# Troubleshooting
+
+TODO
