@@ -1,3 +1,5 @@
+### ### [Err] [Server.cc:86] Error Code 14: [/sdf/world[@name="two_iris_world"]/include[2]/uri:/home/sebgra518/Documents/Git
+
 # DroneDockingSim
 
 Multi-Drone ArduPilot + Gazebo Harmonic + ROS 2 Simulation
@@ -27,12 +29,15 @@ It includes:
 git clone https://github.com/Sebgra518/DroneDockingSim.gitDroneDockingSim
 cd DroneDockingSim/ros2_ws
 ```
+
 ### 2) Source ROS 2
+
 ```bash
 source /opt/ros/jazzy/setup.bash
 ```
 
 ### 3) Create Python Virtual Environment
+
 ```
 python3 -m venv venv
 source venv/bin/activate
@@ -42,6 +47,7 @@ pip install pymavlink
 ```
 
 ### 4) Build the Workspace
+
 ```
 rm -rf build install log
 export AMENT_PYTHON_EXECUTABLE=$(which python)
@@ -52,6 +58,7 @@ source install/setup.bash
 ```
 
 ### 5) Configure Gazebo Model Path
+
 ```
 export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ardupilot_gazebo/models:$HOME/ardupilot_gazebo/worlds
 ```
@@ -59,10 +66,13 @@ export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$HOME/ardupilot_gazebo/models:
 ## Running the Simulation
 
 ### Full Bringup
+
 ```
 ros2 launch drone_docking_sim bringup_two_drones.launch.py
 ```
+
 This starts:
+
 - Gazebo
 - Two ArduPilot SITL instances
 - MAVProxy console
@@ -72,23 +82,27 @@ This starts:
 Start up 3 Terminal Instances
 
 #### Terminal 1 (Gazebo)
+
 ```
 gz sim -r src/drone_docking_sim/worlds/two_iris.sdf
 ```
 
 #### Terminal 2 (Drone 1)
+
 ```
 cd ~/ardupilot
 sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console --map -I0
 ```
 
 #### Terminal 3 (Drone 2)
+
 ```
 cd ~/ardupilot
 sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --no-mavproxy --no-console -I1
 ```
 
 ## Running the Python Control Script
+
 ```
 cd ros2_ws
 source venv/bin/activate
@@ -97,7 +111,9 @@ source install/setup.bash
 
 python -m drone_docking_sim.two_drones_script
 ```
+
 The script will:
+
 - Arm both drones
 - Take off to 10 meters
 - Move 10 meters north
@@ -106,16 +122,21 @@ The script will:
 # Troubleshooting
 
 ### ros2: command not found
+
 ```
 source /opt/ros/jazzy/setup.bash
 ```
+
 Verify: 
-``` 
+
+```
 ros2 --version
 ```
 
 ### Package 'drone_docking_sim' not found: "package 'drone_docking_sim' not found, searching: ['/opt/ros/jazzy']"
+
 Inside of your repo:
+
 ```
 cd ./ros2_ws
 source /opt/ros/jazzy/setup.bash
@@ -123,7 +144,16 @@ source install/setup.bash
 ros2 pkg list | grep drone_docking_sim
 ```
 
+### ### [Err] [Server.cc:86] Error Code 14: [/sdf/world[@name="two_iris_world"]/include[2]/uri:/home/sebgra518/Documents/Git
+
+```
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/home/sebgra518/Documents/GitHub/DroneDockingSim/ros2_ws/src/drone_docking_sim/models
+```
+
+
+
 ### Build from Source MAVProxy:
+
 ```
 sudo apt-get update
 sudo apt-get install python3-pip python3-dev python3-lxml python3-tk python3-pygame python3-scipy python3-serial python3-pexpect
