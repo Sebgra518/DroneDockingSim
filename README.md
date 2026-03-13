@@ -1,5 +1,3 @@
-### ### [Err] [Server.cc:86] Error Code 14: [/sdf/world[@name="two_iris_world"]/include[2]/uri:/home/sebgra518/Documents/Git
-
 # DroneDockingSim
 
 Multi-Drone ArduPilot + Gazebo Harmonic + ROS 2 Simulation
@@ -121,19 +119,9 @@ The script will:
 
 # Troubleshooting
 
-### ros2: command not found
+# NOTE: ALL COMMANDS ARE ASSUMING DEFAULT FILE LOCATIONS
 
-```
-source /opt/ros/jazzy/setup.bash
-```
-
-Verify: 
-
-```
-ros2 --version
-```
-
-### Package 'drone_docking_sim' not found: "package 'drone_docking_sim' not found, searching: ['/opt/ros/jazzy']"
+### ```ros2: command not found``` OR ```Package 'drone_docking_sim' not found: "package 'drone_docking_sim' not found, searching: ['/opt/ros/jazzy']"```
 
 Inside of your repo:
 
@@ -144,13 +132,13 @@ source install/setup.bash
 ros2 pkg list | grep drone_docking_sim
 ```
 
-### ### [Err] [Server.cc:86] Error Code 14: [/sdf/world[@name="two_iris_world"]/include[2]/uri:/home/sebgra518/Documents/Git
+### [Err] [Server.cc:86] Error Code 14: [/sdf/world[@name="two_iris_world"]/include[3]/uri:/home/sebgra518/Documents/GitHub/DroneDockingSim/ros2_ws/src/drone_docking_sim/worlds/two_iris.sdf:L24]: Msg: Unable to find uri[model://iris_with_ardupilot_1]
 
 ```
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/home/sebgra518/Documents/GitHub/DroneDockingSim/ros2_ws/src/drone_docking_sim/models
+export GZ_SIM_RESOURCE_PATH=$HOME/Documents/GitHub/DroneDockingSim/ros2_ws/src/drone_docking_sim/models:$GZ_SIM_RESOURCE_PATH
+export GZ_SIM_RESOURCE_PATH=$HOME/ardupilot_gazebo/models:$GZ_SIM_RESOURCE_PATH
+export GZ_SIM_RESOURCE_PATH=$HOME/ardupilot_gazebo/worlds:$GZ_SIM_RESOURCE_PATH
 ```
-
-
 
 ### Build from Source MAVProxy:
 
