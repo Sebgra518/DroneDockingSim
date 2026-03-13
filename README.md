@@ -82,21 +82,24 @@ Start up 3 Terminal Instances
 #### Terminal 1 (Gazebo)
 
 ```
-gz sim -r src/drone_docking_sim/worlds/two_iris.sdf
+export GZ_SIM_SYSTEM_PLUGIN_PATH=/home/sebgra518/ardupilot_gazebo/build:$GZ_SIM_SYSTEM_PLUGIN_PATH
+export GZ_SIM_RESOURCE_PATH=/home/sebgra518/Documents/GitHub/DroneDockingSim/ros2_ws/src/drone_docking_sim/models:$HOME/ardupilot_gazebo/models:$HOME/ardupilot_gazebo/worlds:$GZ_SIM_RESOURCE_PATH
+export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/ardupilot_gazebo/build:$GZ_SIM_SYSTEM_PLUGIN_PATH  # or wherever your ArduPilotPlugin .so is
+gz sim -v4 -r /home/sebgra518/Documents/GitHub/DroneDockingSim/ros2_ws/src/drone_docking_sim/worlds/two_iris.sdf
 ```
 
 #### Terminal 2 (Drone 1)
 
 ```
 cd ~/ardupilot
-sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console --map -I0
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON -I0 --console --map --sim-address=127.0.0.1
 ```
 
 #### Terminal 3 (Drone 2)
 
 ```
 cd ~/ardupilot
-sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --no-mavproxy --no-console -I1
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON -I1 --console --map --sim-address=127.0.0.1 --sim-port=9012
 ```
 
 ## Running the Python Control Script
@@ -148,4 +151,9 @@ sudo apt-get install python3-pip python3-dev python3-lxml python3-tk python3-pyg
 
 # Install MAVProxy via pip
 pip3 install --upgrade pymavlink mavproxy   
+```
+
+### Failed to load system plugin [ArduPilotPlugin] : Could not find shared library.
+```
+export GZ_SIM_SYSTEM_PLUGIN_PATH=/home/sebgra518/ardupilot_gazebo/build:$GZ_SIM_SYSTEM_PLUGIN_PATH
 ```
