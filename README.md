@@ -24,7 +24,7 @@ It includes:
 ### 1) Clone the repository
 
 ```bash
-git clone https://github.com/Sebgra518/DroneDockingSim.gitDroneDockingSim
+git clone https://github.com/Sebgra518/DroneDockingSim.git
 cd DroneDockingSim/ros2_ws
 ```
 
