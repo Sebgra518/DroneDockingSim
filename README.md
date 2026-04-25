@@ -150,6 +150,13 @@ The script will:
 - Move 10 meters north
 - Land
 
+
+### NEXT STEPS
+
+```
+Once your gazebo can load the 2 drones and can be controlled in the terminals head to the Drone_with_Dockers folder and open Next_Instructions.txt
+```
+
 # Troubleshooting
 
 # NOTE: ALL COMMANDS ARE ASSUMING DEFAULT FILE LOCATIONS
