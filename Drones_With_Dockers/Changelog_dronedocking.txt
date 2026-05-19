@@ -16,4 +16,16 @@ Changelog - Harley Estrella April 24, 2026
 8. Changed 2x drone to a regular sized drone
 9. Added the connectors and attached them to both drones. Drone1 has the male, and drone2 has the female connector by changing the parent sdf files.
 10. Added a new script so that they will mount horizontally and latch onto each other: dock_and_latch.py.
-11. Added a <plugin> code to parent files to allow the drones to dock and latch. - Still haven't gotten this to work.
+11. Added a wind resistance <plugin> code to two_iris.sdf to simulate wind resistance in the future. This is currently commented out and not in use.
+12. Fixed plugin for the detach/topic within iris_with_standoffs_female and now it works. 
+
+#####
+Changelog - Harley Estrella May 18, 2026
+
+1. Added slow_dock.py in DroneDockingSim/ros2_ws/Docking_Script_and_Trials folder.
+2. Fixed the latch and detach bugs. Drones now attach to each other and move as one rigid body.
+3. Added data collection for drone stability that is saved as a csv file in the same folder of slow_dock.py
+4. Added motor control after latch to sync the two drones so that they will move in unison but still unsuccessful with implementation.
+5. Moved two_drones_script.py to Docking_Script_and_Trials folder.
+6. Added step in README.md for running slow_dock.py
+

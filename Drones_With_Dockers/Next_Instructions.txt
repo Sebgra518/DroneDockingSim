@@ -30,3 +30,19 @@
 
 7. As of now, the drones cannot dock on each other with the script. Our next goal is to have a working script that will make them latch onto each other.you paste your iris_with_standoffs_male.sdf, I’ll place the plugin in the exact correct spot and adjust the child_model_link if your child base link is scoped differently.
 
+############
+
+May 18, 2026 Update
+
+Instructions for future of project
+
+Notes: 
+We have resolved the latch and detach issue. What we need now is to change the maximum strength of the rotors in ArduPilot parent iris.
+Later on we need to add weather effects to simulate different wind resistance to see the stability of the lathced drones.
+
+1. Once you've updated your repo, run the same simulation until you've connected to both drones within Gazebo.
+2. Run the following code:
+
+    cd DroneDockingSim/ros2_ws/Docking_Script_and_Trials
+    python slow_dock.py 
+
